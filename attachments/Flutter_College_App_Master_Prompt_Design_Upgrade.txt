@@ -1,0 +1,729 @@
+MASTER PROMPT — PREMIUM FLUTTER COLLEGE STUDENT APP
+Design-system upgrade inspired by Inspira UI, Animate UI, and Lenis
+
+ROLE
+Act as a senior Flutter UI/UX designer, Flutter architect, motion designer, and quality-focused Dart developer. You are improving the existing College Student Mobile App specification included below. Treat that specification as the source of truth for required features. Preserve every required screen, navigation item, feature order, interaction, and frontend-only constraint.
+
+PROJECT CONTEXT
+- Flutter + Dart; Android-first mobile app; frontend-only prototype with local state and realistic dummy data.
+- No backend, database, network API, Firebase, Supabase, authentication server, or real payment gateway.
+- The user is working directly in the DeepSeek AI chatbot and manually copying code into a Flutter project, not using an IDE/coding agent. Give complete files and beginner-friendly setup instructions.
+- Do not claim you have installed packages, cloned repositories, inspected the user's local project, or run tests unless that actually happened. Provide commands and explain what they do.
+
+REFERENCE REPOSITORIES — STUDY, THEN ADAPT
+1. Inspira UI: https://github.com/unovue/inspira-ui
+   Reference for expressive but controlled visual treatments, polished reusable components, visual hierarchy, card treatments, backgrounds, and subtle effects. It is built for Vue/Nuxt/web; do NOT copy Vue components into Flutter.
+2. Animate UI: https://github.com/imskyleen/animate-ui
+   Reference for interaction-led animation, spring-like motion, animated primitives, responsive feedback, and consistent motion tokens. Its skill installer is intended for supported AI coding tools and web component stacks; do NOT assume it installs into DeepSeek chat or provides Flutter widgets.
+3. Lenis: https://github.com/darkroomengineering/lenis
+   Reference for the principles of smooth, deliberate, performance-aware scrolling on the web. Lenis itself is a web scrolling library, not a Flutter package. Do NOT add Lenis to the Flutter app. Use Flutter-native scrolling and animations instead.
+
+IMPORTANT COMPATIBILITY RULE
+First identify the framework, language, and platform of each reference. Extract design principles and interaction patterns—not incompatible dependencies or copied branding. Reimplement appropriate ideas using native Flutter/Dart and Flutter's built-in animation/scroll APIs. If a package is genuinely useful, verify that it supports the current Flutter/Dart version and Android before recommending it. Prefer built-in Flutter widgets and APIs to keep setup simple.
+
+SKILL / REPOSITORY WORKFLOW
+- If operating inside a capable coding agent/terminal, inspect the three repositories' README, license, component catalogue, examples, and relevant source files before implementing. Use shallow clones or targeted browsing where appropriate; do not clone huge repositories unnecessarily.
+- For Animate UI's AI skill, follow the repository's current official installation instructions only if the environment is a supported coding agent. The documented command may resemble `npx skills add imskyleen/animate-ui`; verify current official instructions first. Explain that this skill is not a Flutter component package and may not be usable in a plain DeepSeek chat.
+- For this user working in DeepSeek chat, do not falsely claim the skills were installed. Instead, provide a concise manual adaptation of the useful techniques and complete Flutter code. If the user later uses a compatible coding agent, give the optional install command separately.
+- Check each repository's current license and respect attribution/notice requirements. Take inspiration; do not reproduce entire components or branding verbatim. Add acknowledgements in project documentation where substantial inspiration or adapted code warrants it.
+- Do not add Vue, Nuxt, React, TypeScript, Tailwind, Motion for Vue, Lenis, or web-only dependencies to the Flutter app.
+
+DESIGN DIRECTION
+Create a distinctive, polished campus companion—not a generic admin dashboard and not a flashy marketing website. It should feel like a carefully art-directed, premium native Android product. Prioritize clarity, trust, usefulness, and consistency over decoration.
+
+Suggested design system (adapt only when there is a clear reason):
+- Palette: deep ink/navy for structure, a refined blue/indigo primary, restrained teal or mint for positive status, warm amber for notices, and soft neutral surfaces. Define all colors centrally; do not scatter raw color values across screens.
+- Backgrounds: subtle warm/cool neutral canvas; use elevated surface cards with thin borders and very restrained shadows. Gradients may be used sparingly for the hero/announcement/event area, never on every card.
+- Typography: clear type scale with strong page titles, concise section headings, readable body copy, and muted metadata. Use Material typography consistently; avoid oversized text and dense all-caps labels.
+- Shape language: consistent radii, spacing, icon sizes, button heights, field styles, and card padding. Use a small token system (for example 4/8/12/16/20/24/32 spacing units) and document it.
+- Visual signature: one memorable but restrained motif, such as a fine grid/line detail, abstract campus mark, compact accent strip, or tasteful geometric pattern. Avoid gratuitous glows, random blobs, noisy backgrounds, and excessive gradients.
+- Navigation: five persistent bottom tabs in the exact required order, with Posts in the middle. Use a polished Material 3 NavigationBar or a carefully designed custom bar. Preserve each tab's state when switching, e.g. IndexedStack where appropriate.
+- Content layout: design for real Android phones, safe areas, variable text length, small screens, large text settings, and keyboard appearance. Avoid overflow and fixed heights for content-heavy areas.
+- Use consistent iconography. Prefer Material Symbols / Icons already available in Flutter; avoid mixing unrelated icon styles.
+
+REFERENCE-TO-FLUTTER ADAPTATION MAP
+Use these principles where appropriate:
+- Inspira UI → distinctive but restrained hero banners, nuanced surface treatments, refined card hierarchy, elegant empty states, decorative patterns only where they support content, and reusable components.
+- Animate UI → intentional press feedback, spring-like but controlled transitions, animated selection indicators, staggered entrance only for a small number of items, smooth dialog/sheet transitions, animated icons only when they communicate state, and consistent duration/curve tokens.
+- Lenis → predictable, comfortable scroll behavior, no scroll hijacking, sensible nested scrolling, clear scroll boundaries, and smooth programmatic movement where useful. Use Flutter's ScrollController, ScrollPhysics, AnimatedList, PageTransitionSwitcher or built-in route transitions where appropriate. Never simulate web smooth scrolling in a way that harms native Android behavior.
+
+MOTION AND ACCESSIBILITY RULES
+- Create a small motion system with named durations and curves; use it consistently.
+- Keep common interactions fast and subtle (roughly 150–300 ms as a starting point; longer only for meaningful transitions). Do not animate everything.
+- Provide immediate feedback for taps, likes, votes, form submissions, simulated payments, registration, copy/share, and download/print actions.
+- Use AnimatedSwitcher, AnimatedContainer, TweenAnimationBuilder, Hero, implicit animations, or built-in route/sheet transitions only when they improve clarity.
+- Respect reduced-motion/accessibility settings where feasible; avoid flashing, continuous motion, parallax-heavy effects, or animations that block input.
+- Maintain readable contrast, meaningful semantics and labels, adequate tap targets (aim around 48 logical pixels), keyboard navigation where relevant, and text scaling without overflow.
+- Do not use animation as a substitute for useful information or functioning interaction.
+
+REUSABLE FLUTTER COMPONENTS
+Build and use a consistent set of components, adapting names to the project structure:
+- App theme, color tokens, spacing tokens, radius tokens, typography tokens, and motion tokens.
+- App page scaffold/header, bottom navigation, drawer, section heading, primary/secondary buttons, icon action, surface card, status badge, search field, filter chip, empty state, loading/success feedback, confirmation dialog, form field, progress indicator, and reusable list row.
+- Announcement card and event card variants should share foundations but retain different content emphasis.
+- Feature tiles must use a consistent grid, icon container, label alignment, and pressed state.
+- Create components for repeated UI patterns rather than duplicating styling across 25+ screens.
+- Avoid building an overengineered design system; keep the Dart architecture understandable to a student developer.
+
+IMPLEMENTATION AND QUALITY PROCESS
+1. Start with a brief audit/plan: list the current app specification's required screens and key constraints, identify design opportunities from each reference, and explain what can/cannot be used directly in Flutter.
+2. Establish the design tokens and navigation shell before implementing individual screens.
+3. Build the Home screen first as the visual quality benchmark, then apply the same system consistently to all feature screens.
+4. Implement screens in logical batches, with each batch compiling against the previously supplied files. Always name each file with its exact relative path.
+5. Keep the application frontend-only. Use local in-memory state and sample data; clearly label simulated outcomes. Never imply a payment, claim, registration, upload, message, or download actually reached a real service.
+6. All visible controls must work. Use search/filtering on sample data, real local form validation, working tabs, toggles, likes, polls, profile editing, and appropriate success/error feedback. Do not add dead buttons.
+7. Use responsive layouts, SafeArea, scrollable content, and keyboard-aware forms. Test narrow devices and larger text sizes in your reasoning and code.
+8. If you have access to a real Flutter environment, run `flutter pub get`, `flutter analyze`, and `flutter test` (or explain precisely which could not be run). Fix compile/analyzer errors before declaring completion. If you do not have terminal access, do not claim the code was executed; perform a careful consistency review and provide the exact verification commands.
+9. Keep dependencies minimal. Explain each added dependency and why a built-in alternative is insufficient.
+10. Avoid generating all screens as one huge file. Follow the project structure in the source specification, adjusting only where it clearly improves maintainability.
+11. Do not remove features or shorten the required scope merely to fit a response. Split into logical parts. At the end of each part, list files completed and files remaining; wait for the user to say “Continue” before generating the next part. Do not regenerate completed files unless asked.
+12. If existing project files are supplied, inspect them first, preserve working functionality, and provide targeted changes rather than replacing the project blindly.
+
+VISUAL ACCEPTANCE CHECKLIST
+Before finalizing, check:
+- All five bottom tabs are present and in the required order; Posts is tab three.
+- The Home screen includes the announcement banner, event banner, and exactly eight quick-access items in the required order.
+- The drawer has the exact ten features in the required order.
+- Every required feature has a complete, nonblank screen with realistic sample data.
+- Shared components use the same color, spacing, typography, shape, icon, and motion tokens.
+- The first screen looks polished immediately; content hierarchy and spacing are deliberate.
+- Scrolling feels native and comfortable; nested scroll areas behave correctly.
+- Motion is subtle, coherent, performant, and never blocks use.
+- Every action has visible feedback; no fake success is presented as a real server action.
+- Text scaling, safe areas, small screens, and keyboard use are considered.
+- No unnecessary web-only package or incompatible repository dependency is included.
+- No undefined classes, methods, imports, callbacks, or missing files remain.
+- Commands to run and verify the app are provided honestly.
+
+RESPONSE FORMAT
+- Begin with the implementation plan and proposed design system.
+- Explain the reference repositories in a short compatibility table: inspiration, Flutter adaptation, what not to install.
+- State which work requires a compatible coding agent versus what can be done manually in DeepSeek.
+- Then provide complete code file-by-file in logical parts, each with the relative path and all imports.
+- Provide exact terminal commands for setup and running the app.
+- Do not output pseudocode, ellipses standing in for required code, undefined references, or “repeat this pattern.”
+- Keep explanations beginner-friendly, precise, and practical.
+- At the end of each part, list completed files and remaining files and wait for “Continue.”
+
+SOURCE-OF-TRUTH PROJECT SPECIFICATION
+The full existing app specification follows. Preserve its feature requirements and ordering. If a design enhancement conflicts with a functional requirement here, the functional requirement wins.
+
+PROJECT: Professional College Student Mobile App — Flutter UI Prototype
+
+Act as a senior Flutter UI/UX designer and Flutter developer. I am developing a professional college student mobile application as part of an academic project.
+
+I am using the DeepSeek AI chatbot directly, not a coding harness or IDE agent. Therefore, you must provide complete, usable Flutter/Dart code and clear instructions that I can manually add to my project.
+
+1. Main Objective
+
+The main objective of this project is to create a professional, modern, polished, and realistic college student mobile app UI.
+
+This is a frontend-only prototype. I do not need a backend, database, API integration, authentication server, or cloud services.
+
+All screens must be designed properly using dummy data and simulated interactions. The app should look and behave like a real college application even though the data is not connected to a backend.
+
+Do not treat this as a basic college app assignment. Focus on excellent UI/UX, visual consistency, intuitive navigation, and a premium professional appearance.
+
+2. Technology Requirements
+
+- Framework: Flutter
+- Language: Dart
+- Platform: Android mobile application
+- Frontend only
+- Use dummy/sample data
+- Use local state for interactions
+- No backend or database
+- No API calls
+- No Firebase or Supabase
+- No authentication server
+- Avoid unnecessary packages
+- Prefer Flutter’s built-in widgets and Material Design components
+
+Use clean, readable, maintainable Dart code.
+
+3. Main Application Structure
+
+The application must have a bottom navigation bar with exactly five tabs, in this exact order:
+
+1. Home
+2. Announcement
+3. Posts
+4. Department
+5. Account
+
+The Posts tab must be in the middle, at position number three.
+
+The bottom navigation bar should remain available when navigating between these main sections.
+
+Use proper navigation behavior. Avoid rebuilding the entire application unnecessarily when switching tabs.
+
+4. Home Screen
+
+The Home screen is the main dashboard of the application.
+
+It must include:
+
+A. Top App Bar
+
+- College branding/logo area
+- College name or short name
+- Hamburger menu button to open the sidebar
+- Notification icon
+- Clean and professional layout
+
+Use a suitable sample college name if the actual college name is not provided. Keep it easy to replace later.
+
+B. Announcement Banner
+
+Create a visually attractive banner displaying the latest college announcement.
+
+Include:
+
+- Announcement title
+- Short description
+- Date or time
+- Suitable icon or visual
+- Tap interaction to open the full announcement details
+
+Use realistic sample announcement data.
+
+C. Event Banner
+
+Create a separate banner displaying an upcoming or ongoing college event.
+
+Include:
+
+- Event title
+- Event date
+- Short description
+- Suitable visual or icon
+- Tap interaction to open event details
+
+The announcement banner and event banner must be visually distinct but use the same design system.
+
+D. Quick Access Grid
+
+Create a professional 4 × 2 grid containing exactly eight features, in this exact order:
+
+1. College Calendar
+2. Attendance
+3. Pay Fees
+4. Events
+5. Library
+6. Hall Ticket
+7. Placement
+8. ID Card
+
+Each grid item must contain:
+
+- Suitable icon
+- Feature name
+- Consistent card design
+- Proper spacing
+- Tap interaction
+
+Every item must navigate to its respective feature screen.
+
+Do not leave any feature as a blank screen or a simple “Coming Soon” page.
+
+5. Home Sidebar
+
+The Home screen must have a properly designed sidebar/drawer.
+
+The sidebar must contain the following ten features, in this exact order:
+
+1. Timetable
+2. Question Papers
+3. Handbook
+4. Attendance Claim
+5. Xerox / Printing
+6. Polls
+7. Lecturer Contact Information
+8. Anti-Ragging / Help Group Contacts
+9. College Map
+10. Achievements
+
+The sidebar should include:
+
+- Student profile section at the top
+- Student name and department
+- Suitable avatar or profile icon
+- Close button or proper drawer dismissal behavior
+- Clearly organized menu items
+- Suitable icons
+- Consistent spacing
+- Scrollable content if required
+
+Every sidebar item must navigate to a fully designed screen.
+
+The sidebar must not overlap the main content awkwardly or cause layout problems.
+
+6. Feature Screen Requirements
+
+Create proper UI screens for all the following features.
+
+Home Quick Access Features
+
+College Calendar
+
+- Monthly calendar layout
+- Highlight important dates
+- Display upcoming events
+- Allow users to tap a date and view its events
+- Use sample academic dates
+
+Attendance
+
+- Overall attendance percentage
+- Subject-wise attendance
+- Present and absent counts
+- Progress indicators
+- Attendance history or recent records
+- Visually highlight low attendance
+
+Pay Fees
+
+- Total fee amount
+- Paid amount
+- Pending amount
+- Fee breakdown
+- Payment status
+- Payment history
+- A simulated “Pay Now” button
+- Show a confirmation dialog or success screen when tapped
+- Do not integrate a real payment gateway
+
+Events
+
+- Upcoming and past events
+- Event cards
+- Event date, location, and description
+- Event details screen
+- Simulated registration button
+
+Library
+
+- Search bar
+- Book list with sample data
+- Book title, author, category, and availability
+- Book details screen
+- Simulated book reservation action
+
+Hall Ticket
+
+- Student details
+- Examination details
+- Subject list
+- Examination dates
+- Exam session and venue
+- A visually realistic hall ticket preview
+- Simulated download or print action
+
+Placement
+
+- Placement announcements
+- Company information
+- Job or internship opportunities
+- Eligibility information
+- Application deadline
+- Simulated application action
+
+ID Card
+
+- Professional student ID card design
+- Student name
+- Student photo/avatar
+- Register number
+- Department
+- Academic year
+- College name
+- Simulated download or share action
+
+Home Sidebar Features
+
+Timetable
+
+- Weekly timetable
+- Days and time slots
+- Subject names
+- Faculty names
+- Classroom details
+- Current-day highlighting
+- Use realistic dummy data
+
+Question Papers
+
+- Search and filter options
+- Subject-wise question papers
+- Academic year
+- Semester
+- Examination type
+- Download or view action simulated locally
+
+Handbook
+
+- Professional handbook screen
+- Sections such as academic rules, examination guidelines, attendance policy, and student code of conduct
+- Expandable sections or readable detail pages
+
+Attendance Claim
+
+- Attendance claim form
+- Date
+- Subject
+- Reason
+- Supporting document selection can be simulated
+- Submit button
+- Form validation
+- Submission confirmation
+- Sample claim history and status
+
+Xerox / Printing
+
+- Printing request form
+- Document name
+- Number of pages
+- Copies
+- Print type: black and white or colour
+- Single-sided or double-sided
+- Estimated price
+- Submit request button
+- Simulated request status
+
+Polls
+
+- Active polls
+- Poll questions
+- Multiple-choice options
+- Vote button
+- Show results after voting
+- Use local state to simulate voting
+- Prevent repeated voting in the same poll during the current app session
+
+Lecturer Contact Information
+
+- Lecturer list
+- Lecturer name
+- Department
+- Designation
+- Subject
+- Email or phone number using fictional sample data
+- Search and filtering
+- Contact details screen
+
+Anti-Ragging / Help Group Contacts
+
+- Anti-ragging information
+- Emergency and support contacts
+- Student help groups
+- Clearly distinguish urgent support information from general information
+- Use fictional sample contact data
+- Do not present fake numbers as real official college contacts
+
+College Map
+
+- Professional campus map-style UI
+- Display major campus locations such as library, departments, auditorium, canteen, office, and parking
+- Use a static illustrative campus map or a simple custom Flutter layout
+- Add selectable location markers or cards
+- Do not require Google Maps API
+
+Achievements
+
+- Student and college achievements
+- Achievement cards
+- Category filters
+- Award title
+- Date
+- Description
+- Suitable icons or images
+
+7. Announcement Tab
+
+Create a dedicated Announcement screen.
+
+Include:
+
+- College-wide announcements
+- Announcement categories
+- Important announcements highlighted
+- Date and time
+- Read/unread visual state
+- Search or filtering if appropriate
+- Announcement details screen
+- Mark-as-read interaction
+
+Use realistic sample announcement data.
+
+8. Posts Tab
+
+Create a student community Posts screen.
+
+Include:
+
+- Feed-style layout
+- Student profile/avatar
+- Student name and department
+- Post content
+- Date or time
+- Like button
+- Comment button
+- Share button simulated locally
+- Post creation button
+- Create-post screen with text input
+- Local state for adding posts and liking posts
+- Comments screen or bottom sheet
+
+The Posts tab should look like a modern college community feed.
+
+Do not add unnecessary social-media features that make the application complicated.
+
+9. Department Tab
+
+The Department section must display information only for the student's registered department.
+
+For example:
+
+- An MCA student should see MCA department content.
+- An MBA student should see MBA department content.
+
+Use a sample MCA student by default.
+
+Include:
+
+- Department overview
+- Faculty members
+- Department announcements
+- Department events
+- Department timetable
+- Academic information
+- Department achievements
+- Relevant resources
+
+Organize the screen with tabs, sections, or cards where appropriate.
+
+Use sample data and make the department easy to change later.
+
+10. Account Tab
+
+Create a professional student account/profile screen.
+
+Include:
+
+- Student profile photo/avatar
+- Student name
+- Register number
+- Department
+- Semester
+- Academic year
+- Personal information
+- Academic information
+- Edit profile UI
+- Settings
+- Notification preferences
+- Help and support
+- About the app
+- Logout button
+
+Use dummy student data.
+
+The edit profile feature should work locally using form fields and local state.
+
+The logout button should display a confirmation dialog. Since this is a frontend prototype, do not implement real authentication.
+
+11. Design System and UI/UX
+
+This is one of the most important requirements.
+
+The application must have a premium, professional, modern, and consistent visual design.
+
+Avoid:
+
+- Basic default-looking screens
+- Excessive plain white space
+- Poorly aligned cards
+- Inconsistent icon styles
+- Random colors
+- Overly large text
+- Too many unnecessary gradients
+- Generic blank screens
+- Placeholder pages
+- Unprofessional layouts
+- Repeated UI elements with inconsistent styling
+
+Use:
+
+- A consistent color palette
+- Professional typography
+- Consistent padding and spacing
+- Rounded cards with suitable corner radius
+- Subtle shadows or borders
+- Proper visual hierarchy
+- Suitable icons
+- Clear labels
+- Good contrast
+- Well-designed empty states
+- Consistent buttons and input fields
+- Responsive layouts for different Android screen sizes
+- Proper scroll behavior
+- Smooth and subtle animations where appropriate
+
+Choose a suitable professional color palette for a college application. You may use a clean light theme with a tasteful primary color, or another cohesive theme if it improves the overall design.
+
+Create a reusable theme and reusable UI components.
+
+The UI should look like a real product designed by a professional UI/UX designer, not a beginner Flutter project.
+
+12. Interaction Requirements
+
+Although the application has no backend, the UI must be interactive.
+
+Implement local interactions such as:
+
+- Bottom navigation
+- Sidebar navigation
+- Opening feature screens
+- Search
+- Filtering
+- Tabs
+- Form validation
+- Button actions
+- Dialogs
+- Confirmation messages
+- Local voting
+- Local liking
+- Creating posts
+- Editing profile details
+- Calendar date selection
+- Simulated payment confirmation
+- Simulated registration
+- Simulated download or print feedback
+
+Use "setState", controllers, or other simple local Flutter state management where appropriate.
+
+Do not make buttons that appear functional but do nothing.
+
+If a feature cannot actually perform a backend action, simulate the action and clearly show the user a suitable confirmation message.
+
+13. Code Architecture
+
+Organize the project cleanly.
+
+Prefer a structure similar to:
+
+lib/
+main.dart
+app.dart
+core/
+theme/
+app_theme.dart
+app_colors.dart
+constants/
+app_constants.dart
+models/
+student.dart
+announcement.dart
+event.dart
+post.dart
+data/
+dummy_data.dart
+navigation/
+main_navigation.dart
+widgets/
+app_bottom_navigation.dart
+app_drawer.dart
+feature_card.dart
+announcement_card.dart
+event_card.dart
+common_widgets.dart
+screens/
+home/
+home_screen.dart
+announcements/
+announcement_screen.dart
+announcement_detail_screen.dart
+posts/
+posts_screen.dart
+create_post_screen.dart
+department/
+department_screen.dart
+account/
+account_screen.dart
+features/
+calendar_screen.dart
+attendance_screen.dart
+fees_screen.dart
+events_screen.dart
+library_screen.dart
+hall_ticket_screen.dart
+placement_screen.dart
+id_card_screen.dart
+timetable_screen.dart
+question_papers_screen.dart
+handbook_screen.dart
+attendance_claim_screen.dart
+printing_screen.dart
+polls_screen.dart
+lecturer_contacts_screen.dart
+help_contacts_screen.dart
+campus_map_screen.dart
+achievements_screen.dart
+
+You may improve this structure if there is a clear reason, but keep it organized and easy to understand.
+
+Do not put the entire application into one enormous Dart file.
+
+Do not create unnecessary architecture or complex state management for a frontend-only prototype.
+
+14. Important Code Generation Instructions
+
+Since I am using DeepSeek AI Chatbot directly, follow these instructions carefully:
+
+1. First, provide a short implementation plan.
+2. Then generate the complete Flutter code.
+3. Provide the exact filename and relative path for every file.
+4. Every code file must be complete and ready to copy.
+5. Do not provide incomplete snippets or say “continue the same pattern.”
+6. Do not use pseudo-code.
+7. Do not omit important imports.
+8. Do not leave undefined classes, methods, variables, or callbacks.
+9. Do not use code that depends on files you have not provided.
+10. Do not silently remove required features to make the code shorter.
+11. Do not combine multiple Dart files into one code block without clearly identifying each filename.
+12. Preserve all required features and existing functionality if I provide existing code.
+13. If the response becomes too long, split the implementation into logical parts.
+14. At the end of each part, clearly state which files are completed and which files remain.
+15. Wait for me to say “Continue” before generating the next part.
+16. Ensure the code in each part is compatible with the previous parts.
+17. Do not repeatedly regenerate files that have already been completed unless I request changes.
+18. Explain exactly where each file should be created.
+19. Provide the terminal commands needed to run the application.
+20. Ensure the final application can run without backend configuration.
+
+15. Final Quality Checklist
+
+Before presenting the final implementation, verify that:
+
+- All five bottom navigation tabs are present in the correct order.
+- Posts is the middle tab.
+- The Home screen contains both banners.
+- The Home screen has exactly eight Quick Access items in the specified order.
+- The sidebar contains exactly ten features in the specified order.
+- Every feature has a proper UI screen.
+- Every feature screen contains realistic sample data.
+- Navigation works correctly.
+- The design is consistent across all screens.
+- The UI is responsive.
+- No screen is blank.
+- No button is unnecessarily nonfunctional.
+- No backend or API is required.
+- All code is complete and internally consistent.
+- There are no obvious compile errors.
+
+Start Here
+
+Begin by providing the implementation plan and proposed design system.
+
+Then start generating the Flutter code in logical parts.
+
+Prioritize a beautiful, professional, fully interactive UI prototype over unnecessary backend or architectural complexity.

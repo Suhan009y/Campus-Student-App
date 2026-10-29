@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Meridian",
+      "hasCanvas": false,
+      "bodyTextLen": 762,
+      "bodyTextHash": "211f7644ec93416f5846599ef779a9d0b0d88d1cb029064190978ab5bac17fa5",
+      "bodyTextPrefix": "Meridian College of Applied Sciences Good morning Ananya MCA · S",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/dev-home.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Meridian",
+      "hasCanvas": false,
+      "bodyTextLen": 762,
+      "bodyTextHash": "211f7644ec93416f5846599ef779a9d0b0d88d1cb029064190978ab5bac17fa5",
+      "bodyTextPrefix": "Meridian College of Applied Sciences Good morning Ananya MCA · S",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/dev-home-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/dev-home.json"
+}
