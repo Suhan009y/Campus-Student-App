@@ -5,7 +5,7 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
-      app_web_url: "https://campus-student-app-rho.vercel.app/"
+      app_web_url: 
         description: "Public HTTPS URL of the deployed web app (used if APP_WEB_URL repository variable is not set)"
         required: false
         type: string
